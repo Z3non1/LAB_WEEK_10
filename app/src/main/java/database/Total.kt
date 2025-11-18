@@ -1,12 +1,15 @@
-// File: database/Total.kt
-
 package com.example.lab_week_10.database
 
+import androidx.room.ColumnInfo
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "total_table") // Penanda bahwa ini adalah tabel
+@Entity(tableName = "total")
 data class Total(
-    @PrimaryKey val id: Long,
-    val total: Int
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    val id: Long = 0,
+
+    @Embedded val total: TotalObject  // ← @Embedded sudah cukup!
 )
