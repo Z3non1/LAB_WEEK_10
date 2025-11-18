@@ -4,20 +4,20 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class TotalViewModel: ViewModel() {
-    // Declare the LiveData object
-    private val _total = MutableLiveData<Int>()
-    val total: LiveData<Int> = _total
+class TotalViewModel : ViewModel() {
 
-    // Initialize the LiveData object
-    init {
-        // postValue is used to set the value of the LiveData object
-        // from a background thread or the main thread
-        _total.postValue(0)
+    // Gunakan MutableLiveData agar nilainya bisa diubah dari dalam ViewModel
+    private val _total = MutableLiveData<Int>(0)
+
+    // Ekspos sebagai LiveData yang tidak bisa diubah dari luar
+    val total: LiveData<Int>
+        get() = _total
+
+    fun incrementTotal() {
+        _total.value = (_total.value ?: 0) + 1
     }
 
-    // Increment the total value
-    fun incrementTotal() {
-        _total.postValue(_total.value?.plus(1))
+    fun setTotal(value: Int) {
+        _total.value = value
     }
 }
